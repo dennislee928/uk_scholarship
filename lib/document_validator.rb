@@ -73,3 +73,7 @@ class DocumentValidator
     ]
 
     validate_batch(files_to_validate)
+  end
+
+  # 生成驗證摘要
+  def summary
