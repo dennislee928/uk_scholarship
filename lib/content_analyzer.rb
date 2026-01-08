@@ -12,6 +12,8 @@ class ContentAnalyzer
     'SDG17_夥伴關係' => ['合作', '社群', '分享', '貢獻', '開源', '回饋']
   }.freeze
 
+  attr_reader :analysis_results
+
   def initialize
     @analysis_results = {}
   end

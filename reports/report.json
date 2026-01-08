@@ -1,0 +1,969 @@
+{
+  "timestamp": "2026-01-08 23:12:12 +0800",
+  "validation": {
+    "summary": "驗證摘要\n==================================================\n總計: 4 個檔案\n失敗: 0 個\n通過率: 100.0%\n\n✓ 300字短答_為何申請.md\n   字數: 279/300 ✓\n✓ 自傳.md\n   字數: 781/800 ✓\n✓ 短期學習計畫.md\n   字數: 790/800 ✓\n✓ 未來工作應用.md\n   字數: 996/1000 ✓\n",
+    "results": [
+      {
+        "file": "./2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md",
+        "valid": true,
+        "message": "字數: 279/300 ✓",
+        "timestamp": "2026-01-08 23:12:12 +0800",
+        "word_count": 279,
+        "word_limit": 300,
+        "checks": {
+          "word_count_valid": true,
+          "markdown_valid": true,
+          "has_title": true,
+          "chinese_only": true,
+          "no_special_chars": true
+        }
+      },
+      {
+        "file": "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md",
+        "valid": true,
+        "message": "字數: 781/800 ✓",
+        "timestamp": "2026-01-08 23:12:12 +0800",
+        "word_count": 781,
+        "word_limit": 800,
+        "checks": {
+          "word_count_valid": true,
+          "markdown_valid": true,
+          "has_title": true,
+          "chinese_only": true,
+          "no_special_chars": true
+        }
+      },
+      {
+        "file": "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md",
+        "valid": true,
+        "message": "字數: 790/800 ✓",
+        "timestamp": "2026-01-08 23:12:12 +0800",
+        "word_count": 790,
+        "word_limit": 800,
+        "checks": {
+          "word_count_valid": true,
+          "markdown_valid": true,
+          "has_title": true,
+          "chinese_only": true,
+          "no_special_chars": true
+        }
+      },
+      {
+        "file": "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md",
+        "valid": true,
+        "message": "字數: 996/1000 ✓",
+        "timestamp": "2026-01-08 23:12:12 +0800",
+        "word_count": 996,
+        "word_limit": 1000,
+        "checks": {
+          "word_count_valid": true,
+          "markdown_valid": true,
+          "has_title": true,
+          "chinese_only": true,
+          "no_special_chars": true
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "summary": "內容分析摘要\n==================================================\n\n\n檔案: 300字短答_為何申請.md\n----------------------------------------\n可讀性評分: 80/100\n結構完整性: 30/100\nSDGs 對齊: SDG4_優質教育, SDG3_良好健康, SDG9_產業創新, SDG16_和平正義, SDG17_夥伴關係\n常見錯誤: 0 個\n\n\n檔案: 自傳.md\n----------------------------------------\n可讀性評分: 80/100\n結構完整性: 50/100\nSDGs 對齊: SDG4_優質教育, SDG3_良好健康, SDG9_產業創新, SDG16_和平正義, SDG17_夥伴關係\n常見錯誤: 0 個\n\n\n檔案: 短期學習計畫.md\n----------------------------------------\n可讀性評分: 80/100\n結構完整性: 50/100\nSDGs 對齊: SDG4_優質教育, SDG3_良好健康, SDG9_產業創新, SDG16_和平正義, SDG17_夥伴關係\n常見錯誤: 1 個\n\n\n檔案: 未來工作應用.md\n----------------------------------------\n可讀性評分: 80/100\n結構完整性: 100/100\nSDGs 對齊: SDG4_優質教育, SDG3_良好健康, SDG9_產業創新, SDG16_和平正義, SDG17_夥伴關係\n常見錯誤: 0 個\n\n",
+    "results": {
+      "./2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md": {
+        "file": "./2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md",
+        "readability": {
+          "score": 80,
+          "avg_sentence_length": 70.3,
+          "paragraph_count": 5,
+          "recommendation": "可讀性良好"
+        },
+        "keyword_density": {
+          "keywords": {
+            "軟體": {
+              "count": 0,
+              "density": 0.0
+            },
+            "工程": {
+              "count": 0,
+              "density": 0.0
+            },
+            "開發": {
+              "count": 1,
+              "density": 2.68
+            },
+            "安全": {
+              "count": 3,
+              "density": 8.04
+            },
+            "資安": {
+              "count": 1,
+              "density": 2.68
+            },
+            "系統": {
+              "count": 0,
+              "density": 0.0
+            },
+            "專案": {
+              "count": 1,
+              "density": 2.68
+            },
+            "技術": {
+              "count": 1,
+              "density": 2.68
+            }
+          },
+          "top_keywords": {
+            "安全": {
+              "count": 3,
+              "density": 8.04
+            },
+            "開發": {
+              "count": 1,
+              "density": 2.68
+            },
+            "技術": {
+              "count": 1,
+              "density": 2.68
+            },
+            "資安": {
+              "count": 1,
+              "density": 2.68
+            },
+            "專案": {
+              "count": 1,
+              "density": 2.68
+            }
+          }
+        },
+        "structure": {
+          "score": 30,
+          "checks": {
+            "has_title": true,
+            "has_sections": false,
+            "has_lists": false,
+            "section_count": 0
+          },
+          "recommendation": "建議加入章節標題；建議使用清單來組織內容"
+        },
+        "sdgs_alignment": {
+          "matched_sdgs": [
+            "SDG4_優質教育",
+            "SDG3_良好健康",
+            "SDG9_產業創新",
+            "SDG16_和平正義",
+            "SDG17_夥伴關係"
+          ],
+          "details": {
+            "SDG4_優質教育": {
+              "matched_keywords": [
+                "教育",
+                "知識",
+                "教案",
+                "工作坊"
+              ],
+              "count": 4
+            },
+            "SDG3_良好健康": {
+              "matched_keywords": [
+                "安全"
+              ],
+              "count": 1
+            },
+            "SDG9_產業創新": {
+              "matched_keywords": [
+                "研發",
+                "技術",
+                "開發"
+              ],
+              "count": 3
+            },
+            "SDG16_和平正義": {
+              "matched_keywords": [
+                "安全"
+              ],
+              "count": 1
+            },
+            "SDG17_夥伴關係": {
+              "matched_keywords": [
+                "開源",
+                "回饋"
+              ],
+              "count": 2
+            }
+          },
+          "alignment_score": 100
+        },
+        "common_errors": {
+          "count": 0,
+          "errors": [
+
+          ],
+          "has_errors": false
+        },
+        "statistics": {
+          "total_characters": 428,
+          "chinese_characters": 210,
+          "english_words": 13,
+          "numbers": 22,
+          "punctuation": 25,
+          "lines": 9,
+          "paragraphs": 5
+        }
+      },
+      "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md": {
+        "file": "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md",
+        "readability": {
+          "score": 80,
+          "avg_sentence_length": 64.5,
+          "paragraph_count": 9,
+          "recommendation": "可讀性良好"
+        },
+        "keyword_density": {
+          "keywords": {
+            "軟體": {
+              "count": 0,
+              "density": 0.0
+            },
+            "工程": {
+              "count": 7,
+              "density": 7.71
+            },
+            "開發": {
+              "count": 5,
+              "density": 5.51
+            },
+            "安全": {
+              "count": 6,
+              "density": 6.61
+            },
+            "資安": {
+              "count": 1,
+              "density": 1.1
+            },
+            "系統": {
+              "count": 1,
+              "density": 1.1
+            },
+            "專案": {
+              "count": 4,
+              "density": 4.41
+            },
+            "技術": {
+              "count": 5,
+              "density": 5.51
+            }
+          },
+          "top_keywords": {
+            "工程": {
+              "count": 7,
+              "density": 7.71
+            },
+            "安全": {
+              "count": 6,
+              "density": 6.61
+            },
+            "開發": {
+              "count": 5,
+              "density": 5.51
+            },
+            "技術": {
+              "count": 5,
+              "density": 5.51
+            },
+            "專案": {
+              "count": 4,
+              "density": 4.41
+            }
+          }
+        },
+        "structure": {
+          "score": 50,
+          "checks": {
+            "has_title": true,
+            "has_sections": false,
+            "has_lists": true,
+            "section_count": 0
+          },
+          "recommendation": "建議加入章節標題"
+        },
+        "sdgs_alignment": {
+          "matched_sdgs": [
+            "SDG4_優質教育",
+            "SDG3_良好健康",
+            "SDG9_產業創新",
+            "SDG16_和平正義",
+            "SDG17_夥伴關係"
+          ],
+          "details": {
+            "SDG4_優質教育": {
+              "matched_keywords": [
+                "教育",
+                "學習",
+                "教學",
+                "知識",
+                "工作坊",
+                "分享"
+              ],
+              "count": 6
+            },
+            "SDG3_良好健康": {
+              "matched_keywords": [
+                "安全"
+              ],
+              "count": 1
+            },
+            "SDG9_產業創新": {
+              "matched_keywords": [
+                "技術",
+                "工程",
+                "開發",
+                "系統"
+              ],
+              "count": 4
+            },
+            "SDG16_和平正義": {
+              "matched_keywords": [
+                "安全",
+                "詐騙",
+                "治理",
+                "稽核"
+              ],
+              "count": 4
+            },
+            "SDG17_夥伴關係": {
+              "matched_keywords": [
+                "社群",
+                "分享",
+                "貢獻",
+                "開源"
+              ],
+              "count": 4
+            }
+          },
+          "alignment_score": 100
+        },
+        "common_errors": {
+          "count": 0,
+          "errors": [
+
+          ],
+          "has_errors": false
+        },
+        "statistics": {
+          "total_characters": 981,
+          "chinese_characters": 689,
+          "english_words": 20,
+          "numbers": 17,
+          "punctuation": 62,
+          "lines": 20,
+          "paragraphs": 9
+        }
+      },
+      "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md": {
+        "file": "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md",
+        "readability": {
+          "score": 80,
+          "avg_sentence_length": 463.7,
+          "paragraph_count": 13,
+          "recommendation": "可讀性良好"
+        },
+        "keyword_density": {
+          "keywords": {
+            "軟體": {
+              "count": 2,
+              "density": 2.21
+            },
+            "工程": {
+              "count": 2,
+              "density": 2.21
+            },
+            "開發": {
+              "count": 0,
+              "density": 0.0
+            },
+            "安全": {
+              "count": 6,
+              "density": 6.63
+            },
+            "資安": {
+              "count": 0,
+              "density": 0.0
+            },
+            "系統": {
+              "count": 1,
+              "density": 1.1
+            },
+            "專案": {
+              "count": 1,
+              "density": 1.1
+            },
+            "技術": {
+              "count": 3,
+              "density": 3.31
+            }
+          },
+          "top_keywords": {
+            "安全": {
+              "count": 6,
+              "density": 6.63
+            },
+            "技術": {
+              "count": 3,
+              "density": 3.31
+            },
+            "軟體": {
+              "count": 2,
+              "density": 2.21
+            },
+            "工程": {
+              "count": 2,
+              "density": 2.21
+            },
+            "系統": {
+              "count": 1,
+              "density": 1.1
+            }
+          }
+        },
+        "structure": {
+          "score": 50,
+          "checks": {
+            "has_title": true,
+            "has_sections": false,
+            "has_lists": true,
+            "section_count": 0
+          },
+          "recommendation": "建議加入章節標題"
+        },
+        "sdgs_alignment": {
+          "matched_sdgs": [
+            "SDG4_優質教育",
+            "SDG3_良好健康",
+            "SDG9_產業創新",
+            "SDG16_和平正義",
+            "SDG17_夥伴關係"
+          ],
+          "details": {
+            "SDG4_優質教育": {
+              "matched_keywords": [
+                "教育",
+                "學習",
+                "知識",
+                "教案",
+                "工作坊"
+              ],
+              "count": 5
+            },
+            "SDG3_良好健康": {
+              "matched_keywords": [
+                "安全"
+              ],
+              "count": 1
+            },
+            "SDG9_產業創新": {
+              "matched_keywords": [
+                "研發",
+                "技術",
+                "工程",
+                "系統"
+              ],
+              "count": 4
+            },
+            "SDG16_和平正義": {
+              "matched_keywords": [
+                "安全",
+                "詐騙",
+                "治理"
+              ],
+              "count": 3
+            },
+            "SDG17_夥伴關係": {
+              "matched_keywords": [
+                "開源"
+              ],
+              "count": 1
+            }
+          },
+          "alignment_score": 100
+        },
+        "common_errors": {
+          "count": 1,
+          "errors": [
+            "發現多餘空格"
+          ],
+          "has_errors": true
+        },
+        "statistics": {
+          "total_characters": 1393,
+          "chinese_characters": 429,
+          "english_words": 19,
+          "numbers": 40,
+          "punctuation": 26,
+          "lines": 36,
+          "paragraphs": 13
+        }
+      },
+      "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md": {
+        "file": "./2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md",
+        "readability": {
+          "score": 80,
+          "avg_sentence_length": 169.3,
+          "paragraph_count": 19,
+          "recommendation": "可讀性良好"
+        },
+        "keyword_density": {
+          "keywords": {
+            "軟體": {
+              "count": 2,
+              "density": 1.9
+            },
+            "工程": {
+              "count": 6,
+              "density": 5.71
+            },
+            "開發": {
+              "count": 0,
+              "density": 0.0
+            },
+            "安全": {
+              "count": 10,
+              "density": 9.52
+            },
+            "資安": {
+              "count": 1,
+              "density": 0.95
+            },
+            "系統": {
+              "count": 2,
+              "density": 1.9
+            },
+            "專案": {
+              "count": 0,
+              "density": 0.0
+            },
+            "技術": {
+              "count": 4,
+              "density": 3.81
+            }
+          },
+          "top_keywords": {
+            "安全": {
+              "count": 10,
+              "density": 9.52
+            },
+            "工程": {
+              "count": 6,
+              "density": 5.71
+            },
+            "技術": {
+              "count": 4,
+              "density": 3.81
+            },
+            "軟體": {
+              "count": 2,
+              "density": 1.9
+            },
+            "系統": {
+              "count": 2,
+              "density": 1.9
+            }
+          }
+        },
+        "structure": {
+          "score": 100,
+          "checks": {
+            "has_title": true,
+            "has_sections": true,
+            "has_lists": true,
+            "section_count": 4
+          },
+          "recommendation": "結構良好"
+        },
+        "sdgs_alignment": {
+          "matched_sdgs": [
+            "SDG4_優質教育",
+            "SDG3_良好健康",
+            "SDG9_產業創新",
+            "SDG16_和平正義",
+            "SDG17_夥伴關係"
+          ],
+          "details": {
+            "SDG4_優質教育": {
+              "matched_keywords": [
+                "教育",
+                "知識",
+                "技能",
+                "教案",
+                "工作坊"
+              ],
+              "count": 5
+            },
+            "SDG3_良好健康": {
+              "matched_keywords": [
+                "健康",
+                "福祉",
+                "安全",
+                "風險",
+                "防護"
+              ],
+              "count": 5
+            },
+            "SDG9_產業創新": {
+              "matched_keywords": [
+                "技術",
+                "工程",
+                "系統"
+              ],
+              "count": 3
+            },
+            "SDG16_和平正義": {
+              "matched_keywords": [
+                "安全",
+                "詐騙",
+                "風險",
+                "治理"
+              ],
+              "count": 4
+            },
+            "SDG17_夥伴關係": {
+              "matched_keywords": [
+                "合作",
+                "社群",
+                "開源",
+                "回饋"
+              ],
+              "count": 4
+            }
+          },
+          "alignment_score": 100
+        },
+        "common_errors": {
+          "count": 0,
+          "errors": [
+
+          ],
+          "has_errors": false
+        },
+        "statistics": {
+          "total_characters": 1191,
+          "chinese_characters": 758,
+          "english_words": 16,
+          "numbers": 24,
+          "punctuation": 46,
+          "lines": 53,
+          "paragraphs": 19
+        }
+      }
+    }
+  },
+  "checklist": {
+    "summary": "檢查清單驗證報告\n==================================================\n\n總計項目: 30\n已完成: 7\n待完成: 23\n完成率: 23.33%\n\n\n### 05\\_影片/\n✓ 申請書（含 300 字短答）\n   字數: 229/300\n✓ 自傳及學習應用計畫（自傳、短期學習計畫、未來工作應用）\n   檔案存在\n☐ 當年度錄取學校通知（UofG offer）\n☐ 其他能力證明文件（作品/推薦函/獲獎/證照）\n☐ 2–3 分鐘影片連結\n☐ 1–4 合併成單一 PDF，檔名符合規定\n\n### 申請書\n✓ 300 字短答已完成並符合字數要求\n   字數: 229/300\n☐ 包含 4 個要點：就讀學校、專長實績、獎學金用途、回饋承諾\n\n### 自傳與學習計畫\n✓ 自傳已完成（800 字內）\n   檔案存在\n✓ 短期學習計畫已完成（800 字內）\n   檔案存在\n✓ 未來工作應用已完成（1000 字內）\n   檔案存在\n☐ 所有文件已檢查錯字與語句流暢度\n\n### 證明文件\n☐ 錄取/在學證明已準備\n☐ 能力證明文件已整理完成\n☐ 所有文件清晰可讀\n\n### 影片\n☐ 影片逐字稿已完成\n☐ 影片已錄製（2-3 分鐘）\n   尚未錄製影片\n☐ 影片品質符合要求\n\n### 最終檢查\n☐ 申請書（300 字）✓\n✓ 自傳 ✓\n   檔案存在\n☐ 學習計畫 ✓\n☐ 錄取證明 ✓\n☐ 推薦信 ✓\n☐ 能力證明 ✓\n☐ 影片連結可讀 ✓\n☐ 合併 PDF 檔名正確（`2025明緯獎學金-李沛宸.pdf`，無空格）✓\n☐ 核對官方規格清單 ✓\n☐ 申請期間確認（5/1-7/31）✓\n☐ Email 格式準備完成 ✓\n☐ 已完成 [CHECKLIST.md](../../CHECKLIST.md) 所有項目 ✓\n",
+    "completion": 23.33,
+    "pending": [
+      {
+        "category": "05\\_影片/",
+        "description": "當年度錄取學校通知（UofG offer）",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "05\\_影片/",
+        "description": "其他能力證明文件（作品/推薦函/獲獎/證照）",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "05\\_影片/",
+        "description": "2–3 分鐘影片連結",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "05\\_影片/",
+        "description": "1–4 合併成單一 PDF，檔名符合規定",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "申請書",
+        "description": "包含 4 個要點：就讀學校、專長實績、獎學金用途、回饋承諾",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "自傳與學習計畫",
+        "description": "所有文件已檢查錯字與語句流暢度",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "證明文件",
+        "description": "錄取/在學證明已準備",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "證明文件",
+        "description": "能力證明文件已整理完成",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "證明文件",
+        "description": "所有文件清晰可讀",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "影片",
+        "description": "影片逐字稿已完成",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "影片",
+        "description": "影片已錄製（2-3 分鐘）",
+        "status": "pending",
+        "validation_message": "尚未錄製影片"
+      },
+      {
+        "category": "影片",
+        "description": "影片品質符合要求",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "申請書（300 字）✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "學習計畫 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "錄取證明 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "推薦信 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "能力證明 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "影片連結可讀 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "合併 PDF 檔名正確（`2025明緯獎學金-李沛宸.pdf`，無空格）✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "核對官方規格清單 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "申請期間確認（5/1-7/31）✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "Email 格式準備完成 ✓",
+        "status": "pending",
+        "validation_message": null
+      },
+      {
+        "category": "最終檢查",
+        "description": "已完成 [CHECKLIST.md](../../CHECKLIST.md) 所有項目 ✓",
+        "status": "pending",
+        "validation_message": null
+      }
+    ],
+    "completed": [
+      {
+        "category": "05\\_影片/",
+        "description": "申請書（含 300 字短答）",
+        "status": "completed",
+        "validation_message": "字數: 229/300"
+      },
+      {
+        "category": "05\\_影片/",
+        "description": "自傳及學習應用計畫（自傳、短期學習計畫、未來工作應用）",
+        "status": "completed",
+        "validation_message": "檔案存在"
+      },
+      {
+        "category": "申請書",
+        "description": "300 字短答已完成並符合字數要求",
+        "status": "completed",
+        "validation_message": "字數: 229/300"
+      },
+      {
+        "category": "自傳與學習計畫",
+        "description": "自傳已完成（800 字內）",
+        "status": "completed",
+        "validation_message": "檔案存在"
+      },
+      {
+        "category": "自傳與學習計畫",
+        "description": "短期學習計畫已完成（800 字內）",
+        "status": "completed",
+        "validation_message": "檔案存在"
+      },
+      {
+        "category": "自傳與學習計畫",
+        "description": "未來工作應用已完成（1000 字內）",
+        "status": "completed",
+        "validation_message": "檔案存在"
+      },
+      {
+        "category": "最終檢查",
+        "description": "自傳 ✓",
+        "status": "completed",
+        "validation_message": "檔案存在"
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "type": "errors",
+      "file": "短期學習計畫.md",
+      "message": "發現 1 個常見錯誤",
+      "priority": "high"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 當年度錄取學校通知（UofG offer）",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 其他能力證明文件（作品/推薦函/獲獎/證照）",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 2–3 分鐘影片連結",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 1–4 合併成單一 PDF，檔名符合規定",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 包含 4 個要點：就讀學校、專長實績、獎學金用途、回饋承諾",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 所有文件已檢查錯字與語句流暢度",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 錄取/在學證明已準備",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 能力證明文件已整理完成",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 所有文件清晰可讀",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 影片逐字稿已完成",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 影片已錄製（2-3 分鐘）",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 影片品質符合要求",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 申請書（300 字）✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 學習計畫 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 錄取證明 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 推薦信 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 能力證明 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 影片連結可讀 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 合併 PDF 檔名正確（`2025明緯獎學金-李沛宸.pdf`，無空格）✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 核對官方規格清單 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 申請期間確認（5/1-7/31）✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: Email 格式準備完成 ✓",
+      "priority": "medium"
+    },
+    {
+      "type": "checklist",
+      "message": "待完成: 已完成 [CHECKLIST.md](../../CHECKLIST.md) 所有項目 ✓",
+      "priority": "medium"
+    }
+  ]
+}
