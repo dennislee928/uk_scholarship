@@ -214,7 +214,8 @@ class ContentAnalyzer
       lines: content.lines.count,
       paragraphs: content.split(/\n\n+/).length
     }
-  end
+    # #region agent log
+    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "A", location: "content_analyzer.rb:217", message: "Calculated statistics", data: {statistics: text}, timestamp: Time.now.to_i * 1000}.to_json) }
 
   # 移除 Markdown 語法
   def remove_markdown(content)
@@ -229,8 +230,9 @@ class ContentAnalyzer
     text.gsub!(/^[\s]*[-*+]\s+/, '')
     text.gsub!(/^[\s]*\d+\.\s+/, '')
     text.gsub!(/^>\s+/, '')
-    text.gsub!(/<[^>]+>/, '')
-    text.strip
+    # #region agent log
+    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "D", location: "content_analyzer.rb:234", message: "After remove_markdown in ContentAnalyzer", data: {cleaned_text_length: text.length, cleaned_text_sample: text[0..100]}, timestamp: Time.now.to_i * 1000}.to_json) }
+    # #endregion    text.gsub!(/<[^>]+>/, '')
   end
 
   # 生成可讀性建議
