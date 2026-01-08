@@ -108,7 +108,13 @@ class PDFConverter
                             margin: @options[:margin]) do |pdf|
       
       # 設定字體（使用系統中文字體）
-      setup_fonts(pdf)
+      begin
+        setup_fonts(pdf)
+      rescue StandardError => e
+        raise "無法設定中文字體: #{e.message}\n" \
+              "請確保系統已安裝中文字體，或提供字體文件路徑。\n" \
+              "建議字體: Noto Sans CJK, 微軟正黑體, 或 PingFang"
+      end
       
       # 設定基本樣式
       pdf.font_size @options[:font_size]
@@ -123,15 +129,66 @@ class PDFConverter
 
   # 設定字體
   def setup_fonts(pdf)
-    # 注意：這裡使用 Prawn 內建字體
-    # 實際部署時可能需要自行提供中文字體檔案
-    # pdf.font_families.update(
-    #   "NotoSans" => {
-    #     normal: "path/to/NotoSansCJKtc-Regular.ttf",
-    #     bold: "path/to/NotoSansCJKtc-Bold.ttf"
-    #   }
-    # )
-    # pdf.font "NotoSans"
+    # 嘗試找到系統中文字體
+    chinese_font_path = find_chinese_font
+    
+    if chinese_font_path
+      # 註冊中文字體
+      pdf.font_families.update(
+        "ChineseFont" => {
+          normal: chinese_font_path,
+          bold: chinese_font_path
+        }
+      )
+      pdf.font "ChineseFont"
+    else
+      # 如果找不到中文字體，使用 Prawn 的 Unicode 支援
+      # 這需要字體支援 UTF-8，但可能無法正確顯示中文
+      # 建議使用者安裝中文字體
+      pdf.font "Helvetica"
+      warn "警告: 未找到系統中文字體，中文可能無法正確顯示。建議安裝中文字體。"
+    end
+  end
+
+  # 尋找系統中文字體
+  def find_chinese_font
+    # 常見的中文字體路徑
+    font_paths = []
+    
+    case RbConfig::CONFIG['host_os']
+    when /darwin/i  # macOS
+      font_paths = [
+        '/System/Library/Fonts/PingFang.ttc',
+        '/System/Library/Fonts/STHeiti Light.ttc',
+        '/System/Library/Fonts/STHeiti Medium.ttc',
+        '/Library/Fonts/Microsoft/MingLiU.ttf',
+        '/System/Library/Fonts/Supplemental/Songti.ttc',
+        '/System/Library/Fonts/Supplemental/Kaiti.ttc'
+      ]
+    when /linux/i  # Linux
+      font_paths = [
+        '/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc',
+        '/usr/share/fonts/truetype/noto/NotoSansCJKtc-Regular.otf',
+        '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc',
+        '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc',
+        '~/.fonts/NotoSansCJKtc-Regular.ttf',
+        '~/.local/share/fonts/NotoSansCJKtc-Regular.ttf'
+      ]
+    when /mswin|mingw|cygwin/i  # Windows
+      font_paths = [
+        'C:/Windows/Fonts/msjh.ttc',  # 微軟正黑體
+        'C:/Windows/Fonts/msjhbd.ttc', # 微軟正黑體 Bold
+        'C:/Windows/Fonts/simsun.ttc',  # 新細明體
+        'C:/Windows/Fonts/simhei.ttf',  # 黑體
+        'C:/Windows/Fonts/simkai.ttf'   # 楷體
+      ]
+    end
+    
+    # 展開 ~ 路徑
+    font_paths = font_paths.map { |path| File.expand_path(path) }
+    
+    # 尋找第一個存在的字體文件
+    font_paths.find { |path| File.exist?(path) }
   end
 
   # 渲染 Kramdown 元素
