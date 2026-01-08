@@ -107,3 +107,8 @@ class ContentAnalyzer
     paragraphs = content.split(/
 
 +/)
+    
+    # 簡單的可讀性評分（0-100）
+    score = 100
+    score -= 20 if avg_sentence_length > 50  # 句子太長
+    score -= 10 if paragraphs.length < 3     # 段落太少
