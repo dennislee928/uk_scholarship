@@ -60,3 +60,16 @@ class DocumentValidator
   # 批次驗證多個檔案
   def validate_batch(file_paths)
     @results = file_paths.map { |path| validate_file(path) }
+    @results
+  end
+
+  # 驗證專案所有文件
+  def validate_project(base_path = .)
+    files_to_validate = [
+      File.join(base_path, 2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md),
+      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md),
+      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md),
+      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md)
+    ]
+
+    validate_batch(files_to_validate)
