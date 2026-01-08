@@ -212,11 +212,6 @@ class ContentAnalyzer
       numbers: text.scan(/\d+/).length,
       punctuation: text.scan(/[，。！？、；：]/).length,
       lines: content.lines.count,
-      paragraphs: content.split(/\n\n+/).length
-    }
-    # #region agent log
-    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "A", location: "content_analyzer.rb:217", message: "Calculated statistics", data: {statistics: text}, timestamp: Time.now.to_i * 1000}.to_json) }
-
   # 移除 Markdown 語法
   def remove_markdown(content)
     text = content.dup
@@ -230,12 +225,6 @@ class ContentAnalyzer
     text.gsub!(/^[\s]*[-*+]\s+/, '')
     text.gsub!(/^[\s]*\d+\.\s+/, '')
     text.gsub!(/^>\s+/, '')
-    # #region agent log
-    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "D", location: "content_analyzer.rb:234", message: "After remove_markdown in ContentAnalyzer", data: {cleaned_text_length: text.length, cleaned_text_sample: text[0..100]}, timestamp: Time.now.to_i * 1000}.to_json) }
-    # #endregion    text.gsub!(/<[^>]+>/, '')
-  end
-
-  # 生成可讀性建議
   def generate_readability_recommendation(score)
     case score
     when 80..100

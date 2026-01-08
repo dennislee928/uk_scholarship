@@ -33,15 +33,6 @@ class DocumentValidator
 
     # 確定字數限制
     limit = word_limit || guess_word_limit(File.basename(file_path))
-    # #region agent log
-    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "C", location: "document_validator.rb:36", message: "Word limit guessed", data: {filename: File.basename(file_path), guessed_limit: limit}, timestamp: Time.now.to_i * 1000}.to_json) }
-    # #endregion
-    # 執行各項檢查
-    checks = {
-      word_count_valid: validate_word_count(word_count, limit),
-      markdown_valid: validate_markdown_format(content),
-      has_title: validate_has_title(content),
-      chinese_only: validate_chinese_content(text),
       no_special_chars: validate_special_characters(text)
     }
 
@@ -139,25 +130,7 @@ class DocumentValidator
     # 移除多餘空白
     text.gsub!(/\s+/, ' ')
     text.strip
-    # #region agent log
-    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "D", location: "document_validator.rb:140", message: "After remove_markdown_syntax", data: {cleaned_text_length: text.length, cleaned_text_sample: text[0..100]}, timestamp: Time.now.to_i * 1000}.to_json) }
-  # 計算中文字數（包含標點符號）
-  def count_chinese_characters(text)
-    # 移除英文字母、數字和空格後計算
-    chinese_text = text.gsub(/[a-zA-Z0-9\s]/, '')
-    chinese_text.length
-    # #region agent log
-    # File.open("/Users/lipeichen/Documents/Untitled/uk_scholarship/.cursor/debug.log", "a") { |f| f.puts({sessionId: "debug-session", runId: "run1", hypothesisId: "A", location: "document_validator.rb:147", message: "Counted chinese characters", data: {chinese_text_length: chinese_text.length, word_count: chinese_text.length}, timestamp: Time.now.to_i * 1000}.to_json) }
-    # #endregion  end
-  # 驗證字數是否符合限制
-  def validate_word_count(word_count, limit)
-    return true if limit.nil?
-    word_count <= limit
-  end
-
-  # 驗證 Markdown 格式
-  def validate_markdown_format(content)
-    # 檢查是否有標題
+  end  # 驗證字數是否符合限制
     content.match?(/^#\s+.+/)
   end
 
@@ -171,7 +144,6 @@ class DocumentValidator
     # 簡單檢查：確保主要內容是中文
     chinese_chars = text.scan(/[\u4e00-\u9fff]/).length
     total_chars = text.gsub(/\s/, '').length
-    
     return true if total_chars.zero?
     (chinese_chars.to_f / total_chars) > 0.7
   end
