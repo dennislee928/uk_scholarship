@@ -2,9 +2,15 @@
 
 require 'spec_helper'
 require_relative '../lib/document_validator'
+require 'fileutils'
 
 RSpec.describe DocumentValidator do
   let(:validator) { described_class.new }
+
+  after(:each) do
+    # 清理臨時測試檔案
+    FileUtils.rm_f('spec/temp_test.md')
+  end
 
   describe '#validate_file' do
     it '驗證不存在的檔案' do
