@@ -192,7 +192,7 @@ class ContentAnalyzer
     errors << "發現多餘空格" if content.match?(/\s{3,}/)
     
     # 檢查錯誤的引號使用
-    errors << "引號使用不一致" if content.include?("「") && content.include?(""")
+    errors << "引號使用不一致" if content.include?("「") && content.include?('"')
 
     {
       count: errors.length,
@@ -219,7 +219,7 @@ class ContentAnalyzer
   # 移除 Markdown 語法
   def remove_markdown(content)
     text = content.dup
-    text.gsub!(/^#\{1,6\}\s+/, '')
+    text.gsub!(%r{^#\{1,6\}\s+}, '')
     text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, '\1')
     text.gsub!(/\[([^\]]+)\]\([^)]+\)/, '\1')
     text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, '')

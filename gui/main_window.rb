@@ -65,7 +65,7 @@ class MainWindow
               run_task { generate_report }
             end
           }
-        end
+        }
 
         horizontal_separator {
           stretchy false
