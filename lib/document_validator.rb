@@ -150,7 +150,7 @@ class DocumentValidator
   # 計算中文字數（包含標點符號）
   def count_chinese_characters(text)
     # 移除英文字母、數字和空格後計算
-    chinese_text = text.gsub(/[a-zA-Z0-9\s]/, )
+    chinese_text = text.gsub(/[a-zA-Z0-9\s]/, "")
     chinese_text.length
   end
 
@@ -175,7 +175,7 @@ class DocumentValidator
   def validate_chinese_content(text)
     # 簡單檢查：確保主要內容是中文
     chinese_chars = text.scan(/[\u4e00-\u9fff]/).length
-    total_chars = text.gsub(/\s/, ).length
+    total_chars = text.gsub(/\s/, "").length
     
     return true if total_chars.zero?
     (chinese_chars.to_f / total_chars) > 0.7
