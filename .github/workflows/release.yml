@@ -1,0 +1,77 @@
+name: Build and Release
+
+on:
+    release:
+        types: [created]
+    workflow_dispatch:
+
+jobs:
+    build-windows:
+        runs-on: windows-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Ruby
+              uses: ruby/setup-ruby@v1
+              with:
+                  ruby-version: "3.2"
+
+            - name: Install dependencies
+              run: |
+                  bundle install
+                  gem install ocra
+
+            - name: Build Windows exe
+              run: ruby build/build_windows.rb
+
+            - name: Upload Windows artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: windows-executables
+                  path: build/*.exe
+
+    build-macos:
+        runs-on: macos-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Ruby
+              uses: ruby/setup-ruby@v1
+              with:
+                  ruby-version: "3.2"
+
+            - name: Install dependencies
+              run: bundle install
+
+            - name: Build macOS pkg
+              run: ruby build/build_macos.rb
+
+            - name: Upload macOS artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: macos-package
+                  path: |
+                      build/*.app
+                      build/*.pkg
+
+    upload-release-assets:
+        needs: [build-windows, build-macos]
+        runs-on: ubuntu-latest
+        if: github.event_name == 'release'
+
+        steps:
+            - name: Download all artifacts
+              uses: actions/download-artifact@v3
+
+            - name: Upload to Release
+              uses: softprops/action-gh-release@v1
+              with:
+                  files: |
+                      windows-executables/*
+                      macos-package/*
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

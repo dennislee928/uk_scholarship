@@ -1,120 +1,265 @@
-# UK Scholarship Application - 明緯獎學金申請
+# 明緯獎學金申請文件處理工具
 
-本專案用於準備 2025 年明緯獎學金申請，目標是獲得 50 萬獎學金資助，前往英國格拉斯哥大學（University of Glasgow）攻讀軟體開發碩士學位（MSc Software Development）。
+完整的 Ruby 工具包，用於驗證、轉換、合併和分析明緯獎學金申請文件，並提供 CLI 和 GUI 介面，可打包成跨平台可執行軟體。
 
-## 專案概述
+## 功能特色
 
-明緯獎學金是台灣少數可外帶至英國的民間獎學金，提供 50 萬等級資助。申請材料包含：
+### 核心功能
 
-- 1–4 份文件合併為 1 份 PDF
-- 2–3 分鐘個人影片
+1. **文件驗證**：自動檢查字數限制、格式、完整性
+2. **PDF 轉換**：將 Markdown 轉換為 PDF（支援繁體中文）
+3. **PDF 合併**：合併多個 PDF 為單一文件
+4. **內容分析**：分析可讀性、關鍵字密度、SDGs 對齊
+5. **檢查清單驗證**：自動驗證 README 中的檢查清單
+6. **報告生成**：生成 Markdown、JSON、HTML 格式的驗證報告
+7. **自動化 CI/CD**：GitHub Actions 整合
 
-## 官方規格
+### 使用介面
 
-### 申請期間
-每年 5 月至 7/31（逾期不受理）。
+- **CLI 命令列工具**：快速執行各項功能
+- **GUI 圖形介面**：使用者友善的視窗應用程式
+- **可執行軟體**：打包為 Windows .exe 和 macOS .pkg
 
-### 寄送方式
-完整文件於期限內寄到 info@meanwellfoundation.org。
+## 安裝
 
-### PDF 合併規則
-文件 1–4 必須整合成單一 PDF，檔名為 2025明緯獎學金-XXX(姓名)。
+### 系統需求
 
-### 影片規格
-2–3 分鐘，題目是「明緯獎學金能帶給自己什麼價值？」並回答四題（優勢/劣勢與幫助、最大困難與解法、十年後、如何發揮價值）。
+- Ruby 3.2 或更高版本
+- Bundler
 
-本專案已根據 `hint/backbone.md` 的指導，建立完整的申請材料骨架與內容。
+### 安裝步驟
 
-## 資料夾結構
+```bash
+# 1. 複製專案
+git clone <repository_url>
+cd uk_scholarship
+
+# 2. 安裝依賴
+bundle install
+
+# 3. (可選) 執行測試
+bundle exec rspec
+
+# 4. (可選) 執行 Rake 任務
+bundle exec rake setup    # 建立目錄結構
+```
+
+## 使用方式
+
+### 方式一：使用 CLI 命令列工具
+
+```bash
+# 驗證所有文件
+ruby scripts/cli.rb validate
+
+# 轉換 Markdown 為 PDF
+ruby scripts/cli.rb convert
+
+# 合併 PDF 檔案
+ruby scripts/cli.rb merge
+
+# 分析內容品質
+ruby scripts/cli.rb analyze
+
+# 生成完整報告
+ruby scripts/cli.rb report
+
+# 執行完整流程
+ruby scripts/cli.rb all
+```
+
+### 方式二：使用 GUI 圖形介面
+
+```bash
+# 啟動 GUI 應用程式
+ruby gui/main_window.rb
+```
+
+GUI 提供以下功能：
+
+- 點擊按鈕執行各項功能
+- 即時顯示執行進度
+- 日誌輸出面板
+- 開啟輸出資料夾
+
+### 方式三：使用 Rake 任務
+
+```bash
+# 驗證文件
+bundle exec rake validate
+
+# 轉換為 PDF
+bundle exec rake convert
+
+# 合併 PDF
+bundle exec rake merge
+
+# 分析內容
+bundle exec rake analyze
+
+# 生成報告
+bundle exec rake report
+
+# 執行全部流程
+bundle exec rake all
+```
+
+## 專案結構
 
 ```
 uk_scholarship/
-├── README.md                           # 本說明文件
-├── hint/
-│   └── backbone.md                     # 申請骨架指導文件
-└── 2025_明緯獎學金_李沛宸/              # 申請材料主資料夾
-    ├── README.md                       # 申請包使用說明
-    ├── 檔名規範.md                       # 最終 PDF 檔名規範
-    ├── 01_申請書/
-    │   └── 300字短答_為何申請.md          # 短答初稿
-    ├── 02_自傳與學習計畫/
-    │   ├── 自傳.md                      # 自傳（800 字內）
-    │   ├── 短期學習計畫.md               # 學習計畫（800 字內）
-    │   └── 未來工作應用.md              # 工作應用說明（1000 字內）
-    ├── 03_錄取在學證明/
-    │   └── README.md                   # 證明文件放置說明
-    ├── 04_能力證明附錄/
-    │   └── README.md                   # 能力證明文件放置說明
-    └── 05_影片/
-        └── 影片逐字稿骨架.md              # 影片腳本（2-3 分鐘）
+├── Gemfile                          # Ruby 依賴設定
+├── Rakefile                         # Rake 任務定義
+├── lib/                             # 核心模組
+│   ├── document_validator.rb       # 文件驗證
+│   ├── pdf_converter.rb            # PDF 轉換
+│   ├── pdf_merger.rb               # PDF 合併
+│   ├── content_analyzer.rb         # 內容分析
+│   ├── checklist_validator.rb      # 檢查清單驗證
+│   └── report_generator.rb         # 報告生成
+├── gui/                             # GUI 介面
+│   └── main_window.rb              # 主視窗
+├── scripts/                         # CLI 腳本
+│   └── cli.rb                      # CLI 入口
+├── spec/                            # 測試檔案
+│   ├── spec_helper.rb
+│   ├── document_validator_spec.rb
+│   └── pdf_merger_spec.rb
+├── build/                           # 打包腳本
+│   ├── build_windows.rb            # Windows 打包
+│   └── build_macos.rb              # macOS 打包
+├── .github/workflows/               # GitHub Actions
+│   ├── ruby-validation.yml         # 驗證與建構
+│   └── release.yml                 # 發布流程
+├── product/                         # 輸出目錄
+└── reports/                         # 報告目錄
 ```
 
-## 申請材料內容
+## 打包成可執行軟體
 
-### 核心文件
+### Windows .exe
 
-1. **300 字短答** - 回答為何申請，包含：
+```bash
+# 安裝 OCRA
+gem install ocra
 
-   - 就讀學校與入學時間
-   - 現有專長與實績（資安全端、DevSecOps）
-   - 50 萬獎學金用途（學費/生活費缺口）
-   - 回饋承諾（開源、教育推廣、SDGs 對齊）
+# 執行打包腳本
+ruby build/build_windows.rb
 
-2. **自傳**（800 字內）- 包含背景、轉折、成就、挑戰、為何出國
+# 輸出檔案
+# - build/scholarship-cli.exe
+# - build/scholarship-gui.exe
+```
 
-3. **短期學習計畫**（800 字內）- 課程學習、技能發展、專案規劃、12 個月里程碑
+### macOS .pkg
 
-4. **未來工作應用**（1000 字內）- 職涯路徑規劃、影響力 KPI、SDGs 對齊
+```bash
+# 執行打包腳本
+ruby build/build_macos.rb
 
-5. **個人影片**（2-3 分鐘）- 回答指定題目：
-   - 優勢/劣勢 + 獎學金幫助
-   - 最大困難與解法
-   - 十年後想成為誰
-   - 如何發揮獎學金價值
+# 輸出檔案
+# - build/ScholarshipTools.app
+# - build/ScholarshipTools.pkg
+```
 
-### 證明文件
+## CI/CD 整合
 
-- **錄取/在學證明**：University of Glasgow 錄取通知書、在學證明
-- **能力證明附錄**：學歷證明、專業證照、專案作品、獲獎證明、推薦信等
+本專案已整合 GitHub Actions，提供自動化工作流程：
 
-## 使用流程
+### 持續整合 (ruby-validation.yml)
 
-1. **內容完善**：根據各文件模板，填入具體個人資訊與細節
-2. **文件準備**：將相關證明文件放入對應資料夾
-3. **影片錄製**：根據逐字稿錄製個人申請影片
-4. **PDF 合併**：將所有文件合併為單一 PDF，檔名為 `2025 明緯獎學金-李沛宸.pdf`
-5. **最終檢查**：確認所有文件完整且符合字數要求
+- 自動執行測試
+- 驗證文件
+- 生成 PDF
+- 上傳 artifacts
 
-## 設計原則
+### 自動發布 (release.yml)
 
-- **專業性**：強調資安與軟體工程的專業能力
-- **量化成果**：使用具體數字和可衡量的指標
-- **社會影響**：對齊 SDGs 目標，特別是優質教育與和平正義
-- **可交付性**：強調實際成果產出與社會回饋
+- 建立 Windows .exe
+- 建立 macOS .pkg
+- 上傳到 GitHub Releases
 
-## 技術背景
+觸發方式：
 
-申請者專長：
+```bash
+# 建立 release tag
+git tag v1.0.0
+git push origin v1.0.0
+```
 
-- 資安全端開發
-- DevSecOps 實務
-- 全端工程（前端 + 後端）
-- 系統架構與雲端部署
-- 安全測試與風險治理
+## 開發指南
 
-學習目標：
+### 新增模組
 
-- 軟體工程核心方法
-- 系統設計與架構
-- 測試策略與品質治理
-- 效能優化與可靠性
-- 團隊協作流程
+1. 在 `lib/` 目錄建立新模組
+2. 在 `spec/` 目錄建立對應測試
+3. 在 `scripts/cli.rb` 加入命令
+4. 在 `gui/main_window.rb` 加入按鈕
 
-## 聯絡資訊
+### 執行測試
 
-如有問題或需要協助，請聯絡：李沛宸
+```bash
+# 執行所有測試
+bundle exec rspec
+
+# 執行特定測試
+bundle exec rspec spec/document_validator_spec.rb
+
+# 查看測試覆蓋率
+bundle exec rspec --format documentation
+```
+
+### 程式碼風格
+
+```bash
+# 檢查程式碼風格
+bundle exec rubocop
+
+# 自動修正問題
+bundle exec rubocop -a
+```
+
+## 技術棧
+
+- **Ruby**: 3.2+
+- **PDF 處理**: Prawn, CombinePDF
+- **Markdown 解析**: Kramdown
+- **GUI 框架**: Glimmer DSL for LibUI
+- **CLI 工具**: Colorize
+- **測試框架**: RSpec
+- **打包工具**: OCRA (Windows), Platypus (macOS)
+
+## 常見問題
+
+### Q: 中文顯示不正常？
+
+A: 確保已安裝中文字體。Linux 系統需要安裝 `fonts-noto-cjk`。
+
+### Q: GUI 無法啟動？
+
+A: 確保已安裝 `glimmer-dsl-libui` gem，並檢查系統是否支援 LibUI。
+
+### Q: PDF 合併失敗？
+
+A: 確保 `product/` 目錄中有需要合併的 PDF 檔案。
+
+### Q: 如何自訂 PDF 樣式？
+
+A: 編輯 `lib/pdf_converter.rb` 中的 `DEFAULT_` 常數。
+
+## 貢獻
+
+歡迎提交 Issue 和 Pull Request！
+
+## 授權
+
+本專案僅供個人使用。
+
+## 聯絡方式
+
+如有問題請建立 Issue 或聯絡專案維護者。
 
 ---
 
-**最後更新**：2025 年 1 月 8 日
-**目標申請時間**：2025 年明緯獎學金
+建立日期: 2025
+版本: 1.0.0

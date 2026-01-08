@@ -1,0 +1,36 @@
+# frozen_string_literal: true
+
+require 'spec_helper'
+require_relative '../lib/document_validator'
+
+RSpec.describe DocumentValidator do
+  let(:validator) { described_class.new }
+
+  describe '#validate_file' do
+    it '驗證不存在的檔案' do
+      result = validator.validate_file('nonexistent.md')
+      expect(result[:valid]).to be false
+      expect(result[:message]).to include('檔案不存在')
+    end
+
+    it '驗證字數限制' do
+      # 測試需要實際的測試檔案
+      # 這裡僅作為範例
+    end
+  end
+
+  describe '#validate_project' do
+    it '驗證專案所有文件' do
+      results = validator.validate_project
+      expect(results).to be_an(Array)
+    end
+  end
+
+  describe '#summary' do
+    it '生成驗證摘要' do
+      validator.validate_project
+      summary = validator.summary
+      expect(summary).to include('驗證摘要')
+    end
+  end
+end

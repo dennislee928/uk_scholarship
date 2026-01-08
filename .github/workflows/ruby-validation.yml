@@ -1,0 +1,51 @@
+name: Ruby Validation and PDF Generation
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch:
+
+jobs:
+    validate-and-build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Ruby
+              uses: ruby/setup-ruby@v1
+              with:
+                  ruby-version: "3.2"
+                  bundler-cache: true
+
+            - name: Install dependencies
+              run: |
+                  bundle install
+                  sudo apt-get update
+                  sudo apt-get install -y fonts-noto-cjk fonts-noto-cjk-extra
+
+            - name: Run tests
+              run: bundle exec rspec
+
+            - name: Validate documents
+              run: bundle exec ruby scripts/cli.rb validate
+
+            - name: Convert to PDF
+              run: bundle exec ruby scripts/cli.rb convert
+
+            - name: Merge PDFs
+              run: bundle exec ruby scripts/cli.rb merge
+
+            - name: Generate reports
+              run: bundle exec ruby scripts/cli.rb report
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                  name: scholarship-outputs
+                  path: |
+                      product/
+                      reports/
