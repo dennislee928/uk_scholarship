@@ -14,8 +14,15 @@ RSpec.describe DocumentValidator do
     end
 
     it '驗證字數限制' do
-      # 測試需要實際的測試檔案
-      # 這裡僅作為範例
+      # 建立臨時測試檔案
+      test_file = 'spec/temp_test.md'
+      File.write(test_file, '# 測試\n' + '測試' * 100)
+      
+      result = validator.validate_file(test_file, 50)
+      expect(result).to have_key(:valid)
+      expect(result).to have_key(:word_count)
+      
+      File.delete(test_file) if File.exist?(test_file)
     end
   end
 
