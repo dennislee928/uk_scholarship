@@ -34,3 +34,6 @@ class DocumentValidator
     # 確定字數限制
     limit = word_limit || guess_word_limit(File.basename(file_path))
 
+    # 執行各項檢查
+    checks = {
+      word_count_valid: validate_word_count(word_count, limit),
