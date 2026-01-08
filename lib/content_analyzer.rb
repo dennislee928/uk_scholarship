@@ -165,3 +165,104 @@ class ContentAnalyzer
   end
 
   # 分析 SDGs 關鍵字
+  def analyze_sdgs_keywords(content)
+    text = remove_markdown(content)
+    
+    matched_sdgs = []
+    sdg_details = {}
+
+    SDGS_KEYWORDS.each do |sdg, keywords|
+      matches = keywords.select { |keyword| text.include?(keyword) }
+      
+      if matches.any?
+        matched_sdgs << sdg
+        sdg_details[sdg] = {
+          matched_keywords: matches,
+          count: matches.length
+        }
+      end
+    end
+
+    {
+      matched_sdgs: matched_sdgs,
+      details: sdg_details,
+      alignment_score: [100, matched_sdgs.length * 20].min
+    }
+  end
+
+  # 偵測常見錯誤
+  def detect_common_errors(content)
+    errors = []
+
+    # 檢查重複標點符號
+    errors << "發現重複標點符號" if content.match?(/[。，！？]{2,}/)
+    
+    # 檢查全形/半形混用
+    errors << "全形半形數字混用" if content.match?(/\d/) && content.match?(/[０-９]/)
+    
+    # 檢查多餘空格
+    errors << "發現多餘空格" if content.match?(/\s{3,}/)
+    
+    # 檢查錯誤的引號使用
+
+    {
+      count: errors.length,
+      errors: errors,
+      has_errors: errors.any?
+    }
+  end
+
+  # 計算統計資訊
+  def calculate_statistics(content)
+    text = remove_markdown(content)
+    
+    {
+      total_characters: text.length,
+      chinese_characters: text.scan(/[\u4e00-\u9fff]/).length,
+      english_words: text.scan(/[a-zA-Z]+/).length,
+      numbers: text.scan(/\d+/).length,
+      punctuation: text.scan(/[，。！？、；：]/).length,
+      lines: content.lines.count,
+      paragraphs: content.split(/\n\n+/).length
+    }
+  end
+
+  # 移除 Markdown 語法
+  def remove_markdown(content)
+    text = content.dup
+    text.gsub!(%r{^#\{1,6}\s+}, )
+    text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, \1)
+    text.gsub!(/\[([^\]]+)\]\([^)]+\)/, \1)
+    text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, )
+    text.gsub!(/```[\s\S]*?```/, )
+    text.gsub!(/`([^`]+)`/, \1)
+    text.gsub!(/^[-*_]{3,}$/, )
+    text.gsub!(/^[\s]*[-*+]\s+/, )
+    text.gsub!(/^[\s]*\d+\.\s+/, )
+    text.gsub!(/^>\s+/, )
+    text.gsub!(/<[^>]+>/, )
+    text.strip
+  end
+
+  # 生成可讀性建議
+  def generate_readability_recommendation(score)
+    case score
+    when 80..100
+      "可讀性良好"
+    when 60..79
+      "可讀性中等，建議簡化部分長句"
+    else
+      "可讀性偏低，建議增加段落分隔並縮短句子"
+    end
+  end
+
+  # 生成結構建議
+  def generate_structure_recommendation(checks)
+    recommendations = []
+    recommendations << "建議加入標題" unless checks[:has_title]
+    recommendations << "建議加入章節標題" unless checks[:has_sections]
+    recommendations << "建議使用清單來組織內容" unless checks[:has_lists]
+    
+    recommendations.empty? ? "結構良好" : recommendations.join("；")
+  end
+end
