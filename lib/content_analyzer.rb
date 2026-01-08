@@ -124,10 +124,10 @@ class ContentAnalyzer
   # 分析關鍵字密度
   def analyze_keywords(content)
     text = remove_markdown(content).downcase
-    total_chars = text.gsub(/\s/, ).length
+    total_chars = text.gsub(/\s/, "").length
 
     # 重要關鍵字
-    important_keywords = [軟體, 工程, 開發, 安全, 資安, 系統, 專案, 技術]
+    important_keywords = ['軟體', '工程', '開發', '安全', '資安', '系統', '專案', '技術']
     
     keyword_counts = important_keywords.map do |keyword|
       count = text.scan(keyword).length
@@ -174,7 +174,7 @@ class ContentAnalyzer
       matches = keywords.select { |keyword| text.include?(keyword) }
       
       if matches.any?
-        matched_sdgs << 'sdg'
+        matched_sdgs << sdg
         sdg_details[sdg] = {
           matched_keywords: matches,
           count: matches.length
@@ -194,13 +194,13 @@ class ContentAnalyzer
     errors = []
 
     # 檢查重複標點符號
-    errors << ''"發現重複標點符號" if content.match?(/[。，！？]{2,}/)
+    errors << "發現重複標點符號" if content.match?(/[。，！？]{2,}/)
     
     # 檢查全形/半形混用
-    errors << ''"全形半形數字混用" if content.match?(/\d/) && content.match?(/[０-９]/)
+    errors << "全形半形數字混用" if content.match?(/\d/) && content.match?(/[０-９]/)
     
     # 檢查多餘空格
-    errors << ''"發現多餘空格" if content.match?(/\s{3,}/)
+    errors << "發現多餘空格" if content.match?(/\s{3,}/)
     
     # 檢查錯誤的引號使用
 
@@ -258,9 +258,9 @@ class ContentAnalyzer
   # 生成結構建議
   def generate_structure_recommendation(checks)
     recommendations = []
-    recommendations << ''"建議加入標題" unless checks[:has_title]
-    recommendations << ''"建議加入章節標題" unless checks[:has_sections]
-    recommendations << ''"建議使用清單來組織內容" unless checks[:has_lists]
+    recommendations << "建議加入標題" unless checks[:has_title]
+    recommendations << "建議加入章節標題" unless checks[:has_sections]
+    recommendations << "建議使用清單來組織內容" unless checks[:has_lists]
     
     recommendations.empty? ? "結構良好" : recommendations.join("；")
   end

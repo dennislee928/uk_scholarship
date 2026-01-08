@@ -130,7 +130,7 @@ class DocumentValidator
     text.gsub!(/`([^`]+)`/, '\1')
     
     # 移除分隔線
-    text.gsub!(/^[-*_]{3,}$/, )
+    text.gsub!(/^[-*_]{3,}$/, "")
     
     # 移除清單標記
     text.gsub!(/^[\s]*[-*+]\s+/, '')
@@ -143,7 +143,7 @@ class DocumentValidator
     text.gsub!(/<[^>]+>/, '')
     
     # 移除多餘空白
-    text.gsub!(/\s+/,  )
+    text.gsub!(/\s+/, " ")
     text.strip
   end
 
