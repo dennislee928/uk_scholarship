@@ -27,7 +27,7 @@ jobs:
               run: ruby build/build_windows.rb
 
             - name: Upload Windows artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: windows-executables
                   path: build/*.exe
@@ -51,7 +51,7 @@ jobs:
               run: ruby build/build_macos.rb
 
             - name: Upload macOS artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: macos-package
                   path: |
