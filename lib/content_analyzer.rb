@@ -156,3 +156,12 @@ class ContentAnalyzer
     score += 30 if structure_checks[:has_sections]
     score += 20 if structure_checks[:has_lists]
     score += 20 if structure_checks[:section_count] >= 3
+
+    {
+      score: score,
+      checks: structure_checks,
+      recommendation: generate_structure_recommendation(structure_checks)
+    }
+  end
+
+  # 分析 SDGs 關鍵字
