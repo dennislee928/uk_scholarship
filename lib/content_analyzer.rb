@@ -23,7 +23,7 @@ class ContentAnalyzer
       return { error: "檔案不存在: #{file_path}" }
     end
 
-    content = File.read(file_path, encoding: utf-8)
+    content = File.read(file_path, encoding: 'utf-8')
     
     analysis = {
       file: file_path,
@@ -50,12 +50,12 @@ class ContentAnalyzer
   end
 
   # 分析專案所有文件
-  def analyze_project(base_path = .)
+  def analyze_project(base_path = '.')
     files_to_analyze = [
-      File.join(base_path, 2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md),
-      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md),
-      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md),
-      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md)
+      File.join(base_path, '2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md'),
+      File.join(base_path, '2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md'),
+      File.join(base_path, '2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md'),
+      File.join(base_path, '2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md')
     ]
 
     existing_files = files_to_analyze.select { |f| File.exist?(f) }
@@ -82,7 +82,7 @@ class ContentAnalyzer
 "
       summary_text += "結構完整性: #{analysis[:structure][:score]}/100
 "
-      summary_text += "SDGs 對齊: #{analysis[:sdgs_alignment][:matched_sdgs].join(, )}
+      summary_text += "SDGs 對齊: #{analysis[:sdgs_alignment][:matched_sdgs].join(', ')}
 "
       summary_text += "常見錯誤: #{analysis[:common_errors][:count]} 個
 "
@@ -175,7 +175,7 @@ class ContentAnalyzer
       matches = keywords.select { |keyword| text.include?(keyword) }
       
       if matches.any?
-        matched_sdgs << sdg
+        matched_sdgs << 'sdg'
         sdg_details[sdg] = {
           matched_keywords: matches,
           count: matches.length
@@ -195,13 +195,13 @@ class ContentAnalyzer
     errors = []
 
     # 檢查重複標點符號
-    errors << "發現重複標點符號" if content.match?(/[。，！？]{2,}/)
+    errors << ''"發現重複標點符號" if content.match?(/[。，！？]{2,}/)
     
     # 檢查全形/半形混用
-    errors << "全形半形數字混用" if content.match?(/\d/) && content.match?(/[０-９]/)
+    errors << ''"全形半形數字混用" if content.match?(/\d/) && content.match?(/[０-９]/)
     
     # 檢查多餘空格
-    errors << "發現多餘空格" if content.match?(/\s{3,}/)
+    errors << ''"發現多餘空格" if content.match?(/\s{3,}/)
     
     # 檢查錯誤的引號使用
 
@@ -233,14 +233,14 @@ class ContentAnalyzer
     text.gsub!(%r{^#\{1,6}\s+}, )
     text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, \1)
     text.gsub!(/\[([^\]]+)\]\([^)]+\)/, \1)
-    text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, )
-    text.gsub!(/```[\s\S]*?```/, )
+    text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, '')
+    text.gsub!(/```[\s\S]*?```/, '')
     text.gsub!(/`([^`]+)`/, \1)
     text.gsub!(/^[-*_]{3,}$/, )
-    text.gsub!(/^[\s]*[-*+]\s+/, )
-    text.gsub!(/^[\s]*\d+\.\s+/, )
-    text.gsub!(/^>\s+/, )
-    text.gsub!(/<[^>]+>/, )
+    text.gsub!(/^[\s]*[-*+]\s+/, '')
+    text.gsub!(/^[\s]*\d+\.\s+/, '')
+    text.gsub!(/^>\s+/, '')
+    text.gsub!(/<[^>]+>/, '')
     text.strip
   end
 
@@ -259,9 +259,9 @@ class ContentAnalyzer
   # 生成結構建議
   def generate_structure_recommendation(checks)
     recommendations = []
-    recommendations << "建議加入標題" unless checks[:has_title]
-    recommendations << "建議加入章節標題" unless checks[:has_sections]
-    recommendations << "建議使用清單來組織內容" unless checks[:has_lists]
+    recommendations << ''"建議加入標題" unless checks[:has_title]
+    recommendations << ''"建議加入章節標題" unless checks[:has_sections]
+    recommendations << ''"建議使用清單來組織內容" unless checks[:has_lists]
     
     recommendations.empty? ? "結構良好" : recommendations.join("；")
   end

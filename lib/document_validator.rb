@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require fileutils
+require 'fileutils'
 
 # 文件驗證模組
 # 負責檢查文件字數、格式、完整性等
 class DocumentValidator
   # 字數限制配置
   WORD_LIMITS = {
-    300字短答_為何申請.md => 300,
-    自傳.md => 800,
-    短期學習計畫.md => 800,
-    未來工作應用.md => 1000
+    '300字短答_為何申請.md' => 300,
+    '自傳.md' => 800,
+    '短期學習計畫.md' => 800,
+    '未來工作應用.md' => 1000
   }.freeze
 
   attr_reader :results
@@ -25,7 +25,7 @@ class DocumentValidator
       return build_result(file_path, false, "檔案不存在", word_limit: word_limit)
     end
 
-    content = File.read(file_path, encoding: utf-8)
+    content = File.read(file_path, encoding: 'utf-8')
     
     # 移除 Markdown 語法計算實際字數
     text = remove_markdown_syntax(content)
@@ -64,12 +64,12 @@ class DocumentValidator
   end
 
   # 驗證專案所有文件
-  def validate_project(base_path = .)
+  def validate_project(base_path = '.')
     files_to_validate = [
-      File.join(base_path, 2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md),
-      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md),
-      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md),
-      File.join(base_path, 2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md)
+      File.join(base_path, '2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md'),
+      File.join(base_path, '2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md'),
+      File.join(base_path, '2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md'),
+      File.join(base_path, '2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md')
     ]
 
     validate_batch(files_to_validate)
@@ -117,30 +117,30 @@ class DocumentValidator
     text.gsub!(/^#\{1,6}\s+/, )
     
     # 移除粗體、斜體
-    text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, \1)
+    text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, '\1')
     
     # 移除連結
-    text.gsub!(/\[([^\]]+)\]\([^)]+\)/, \1)
+    text.gsub!(/\[([^\]]+)\]\([^)]+\)/, '\1')
     
     # 移除圖片
-    text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, )
+    text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, '')
     
     # 移除程式碼區塊
-    text.gsub!(/```[\s\S]*?```/, )
-    text.gsub!(/`([^`]+)`/, \1)
+    text.gsub!(/```[\s\S]*?```/, '')
+    text.gsub!(/`([^`]+)`/, '\1')
     
     # 移除分隔線
     text.gsub!(/^[-*_]{3,}$/, )
     
     # 移除清單標記
-    text.gsub!(/^[\s]*[-*+]\s+/, )
-    text.gsub!(/^[\s]*\d+\.\s+/, )
+    text.gsub!(/^[\s]*[-*+]\s+/, '')
+    text.gsub!(/^[\s]*\d+\.\s+/, '')
     
     # 移除引用標記
-    text.gsub!(/^>\s+/, )
+    text.gsub!(/^>\s+/, '')
     
     # 移除 HTML 標籤
-    text.gsub!(/<[^>]+>/, )
+    text.gsub!(/<[^>]+>/, '')
     
     # 移除多餘空白
     text.gsub!(/\s+/,  )
@@ -184,14 +184,14 @@ class DocumentValidator
   # 驗證特殊字元
   def validate_special_characters(text)
     # 檢查是否有不應該出現的特殊字元
-    forbidden_chars = [, □, ■]
+    forbidden_chars = ['', '□', '■']
     forbidden_chars.none? { |char| text.include?(char) }
   end
 
   def guess_word_limit(filename)
   # 根據檔名猜測字數限制
     WORD_LIMITS.each do |pattern, limit|
-      return limit if filename.include?(pattern.gsub(.md, ))
+      return limit if filename.include?(pattern.gsub('.md', ''))
     end
     nil
   end
