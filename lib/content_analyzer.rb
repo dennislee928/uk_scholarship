@@ -20,3 +20,4 @@ class ContentAnalyzer
   # 分析單一檔案
   def analyze_file(file_path)
     unless File.exist?(file_path)
+      return { error: "檔案不存在: #{file_path}" }
