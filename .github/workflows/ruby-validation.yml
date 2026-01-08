@@ -43,7 +43,7 @@ jobs:
               run: bundle exec ruby scripts/cli.rb report
 
             - name: Upload artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: scholarship-outputs
                   path: |
