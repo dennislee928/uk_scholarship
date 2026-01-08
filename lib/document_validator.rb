@@ -174,17 +174,20 @@ class DocumentValidator
   # 驗證內容是否為繁體中文
   def validate_chinese_content(text)
     # 簡單檢查：確保主要內容是中文
+    # 對於技術文件，允許較低的中文比例（因為包含英文技術術語）
     chinese_chars = text.scan(/[\u4e00-\u9fff]/).length
     total_chars = text.gsub(/\s/, "").length
     
     return true if total_chars.zero?
-    (chinese_chars.to_f / total_chars) > 0.7
+    # 降低閾值至 45%，因為技術文件常包含英文術語（如 CI/CD, GitHub, repo 等）
+    # 以及表格格式中的英文標題和技術名詞
+    (chinese_chars.to_f / total_chars) > 0.45
   end
 
   # 驗證特殊字元
   def validate_special_characters(text)
     # 檢查是否有不應該出現的特殊字元
-    forbidden_chars = ['', '□', '■']
+    forbidden_chars = ['□', '■']
     forbidden_chars.none? { |char| text.include?(char) }
   end
 
