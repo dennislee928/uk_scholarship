@@ -1,0 +1,92 @@
+name: Convert Markdown to PDF on Tag
+
+on:
+    push:
+        tags:
+            - "*"
+    workflow_dispatch: {}
+jobs:
+    convert-to-pdf:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Verify tag is on main branch
+              run: |
+                  # Fetch all branches and tags
+                  git fetch --all --tags
+                  # Get the commit SHA that the tag points to
+                  TAG_SHA=$(git rev-parse ${{ github.ref_name }})
+                  # Check if this commit is in main branch
+                  if git branch -r --contains $TAG_SHA | grep -q 'origin/main'; then
+                    echo "Tag ${{ github.ref_name }} is on main branch"
+                  else
+                    echo "Tag ${{ github.ref_name }} is not on main branch, skipping"
+                    exit 1
+                  fi
+
+            - name: Install dependencies
+              run: |
+                  sudo apt-get update
+                  sudo apt-get install -y \
+                    pandoc \
+                    texlive-xetex \
+                    texlive-lang-chinese \
+                    texlive-fonts-recommended \
+                    fonts-noto-cjk \
+                    fonts-noto-cjk-extra
+
+            - name: Convert Markdown files to PDF
+              run: |
+                  mkdir -p product
+
+                  # Convert 300字短答_為何申請.md
+                  pandoc "2025_明緯獎學金_李沛宸/01_申請書/300字短答_為何申請.md" \
+                    -o "product/300字短答_為何申請.pdf" \
+                    --pdf-engine=xelatex \
+                    -V CJKmainfont="Noto Sans CJK TC" \
+                    -V geometry:margin=2cm \
+                    --template=default
+
+                  # Convert 自傳.md
+                  pandoc "2025_明緯獎學金_李沛宸/02_自傳與學習計畫/自傳.md" \
+                    -o "product/自傳.pdf" \
+                    --pdf-engine=xelatex \
+                    -V CJKmainfont="Noto Sans CJK TC" \
+                    -V geometry:margin=2cm \
+                    --template=default
+
+                  # Convert 短期學習計畫.md
+                  pandoc "2025_明緯獎學金_李沛宸/02_自傳與學習計畫/短期學習計畫.md" \
+                    -o "product/短期學習計畫.pdf" \
+                    --pdf-engine=xelatex \
+                    -V CJKmainfont="Noto Sans CJK TC" \
+                    -V geometry:margin=2cm \
+                    --template=default
+
+                  # Convert 未來工作應用.md
+                  pandoc "2025_明緯獎學金_李沛宸/02_自傳與學習計畫/未來工作應用.md" \
+                    -o "product/未來工作應用.pdf" \
+                    --pdf-engine=xelatex \
+                    -V CJKmainfont="Noto Sans CJK TC" \
+                    -V geometry:margin=2cm \
+                    --template=default
+
+            - name: Commit and push PDF files
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+
+                  if [ -n "$(git status --porcelain product/)" ]; then
+                    git add product/
+                    git commit -m "chore: Generate PDF files from Markdown on tag ${{ github.ref_name }}"
+                    git push
+                  else
+                    echo "No changes to commit"
+                  fi
