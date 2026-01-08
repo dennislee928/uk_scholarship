@@ -219,7 +219,7 @@ class ContentAnalyzer
   # 移除 Markdown 語法
   def remove_markdown(content)
     text = content.dup
-    text.gsub!(/^#{1,6}\s+/, '')
+    text.gsub!(/^#\{1,6\}\s+/, '')
     text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, '\1')
     text.gsub!(/\[([^\]]+)\]\([^)]+\)/, '\1')
     text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, '')
