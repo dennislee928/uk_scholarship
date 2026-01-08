@@ -152,3 +152,7 @@ class ContentAnalyzer
     }
 
     score = 0
+    score += 30 if structure_checks[:has_title]
+    score += 30 if structure_checks[:has_sections]
+    score += 20 if structure_checks[:has_lists]
+    score += 20 if structure_checks[:section_count] >= 3
