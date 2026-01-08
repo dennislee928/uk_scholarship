@@ -113,3 +113,65 @@ class DocumentValidator
   def remove_markdown_syntax(content)
     text = content.dup
     
+    # 移除標題標記
+    text.gsub!(/^#\{1,6}\s+/, )
+    
+    # 移除粗體、斜體
+    text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, \1)
+    
+    # 移除連結
+    text.gsub!(/\[([^\]]+)\]\([^)]+\)/, \1)
+    
+    # 移除圖片
+    text.gsub!(/!\[([^\]]*)\]\([^)]+\)/, )
+    
+    # 移除程式碼區塊
+    text.gsub!(/```[\s\S]*?```/, )
+    text.gsub!(/`([^`]+)`/, \1)
+    
+    # 移除分隔線
+    text.gsub!(/^[-*_]{3,}$/, )
+    
+    # 移除清單標記
+    text.gsub!(/^[\s]*[-*+]\s+/, )
+    text.gsub!(/^[\s]*\d+\.\s+/, )
+    
+    # 移除引用標記
+    text.gsub!(/^>\s+/, )
+    
+    # 移除 HTML 標籤
+    text.gsub!(/<[^>]+>/, )
+    
+    # 移除多餘空白
+    text.gsub!(/\s+/,  )
+    text.strip
+  end
+
+  # 計算中文字數（包含標點符號）
+  def count_chinese_characters(text)
+    # 移除英文字母、數字和空格後計算
+    chinese_text = text.gsub(/[a-zA-Z0-9\s]/, )
+    chinese_text.length
+  end
+
+  # 驗證字數是否符合限制
+  def validate_word_count(word_count, limit)
+    return true if limit.nil?
+    word_count <= limit
+  end
+
+  # 驗證 Markdown 格式
+  def validate_markdown_format(content)
+    # 檢查是否有標題
+    content.match?(/^#\s+.+/)
+  end
+
+  # 驗證是否有標題
+  def validate_has_title(content)
+    content.match?(/^#\s+.+/)
+  end
+
+  # 驗證內容是否為繁體中文
+  def validate_chinese_content(text)
+    # 簡單檢查：確保主要內容是中文
+    chinese_chars = text.scan(/[\u4e00-\u9fff]/).length
