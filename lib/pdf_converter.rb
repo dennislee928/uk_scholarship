@@ -167,13 +167,31 @@ class PDFConverter
       ]
     when /linux/i  # Linux
       font_paths = [
+        '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.otf',
         '/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc',
         '/usr/share/fonts/truetype/noto/NotoSansCJKtc-Regular.otf',
+        '/usr/share/fonts/truetype/noto/NotoSansCJKtc-Regular.ttf',
+        '/usr/share/fonts/opentype/noto/NotoSansCJKtc-Regular.otf',
         '/usr/share/fonts/truetype/wqy/wqy-microhei.ttc',
         '/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc',
         '~/.fonts/NotoSansCJKtc-Regular.ttf',
         '~/.local/share/fonts/NotoSansCJKtc-Regular.ttf'
       ]
+      
+      # 也嘗試使用 fc-list 查找字體文件路徑（如果可用）
+      if system('which fc-list > /dev/null 2>&1')
+        begin
+          # fc-list 返回格式: /path/to/font: Font Name:style
+          noto_fonts = `fc-list :lang=zh file 2>/dev/null`.split("\n").grep(/[Nn]oto.*\.(ttf|otf|ttc)/i)
+          if noto_fonts.any?
+            # 提取第一個字體文件路徑
+            font_path = noto_fonts.first.split(':').first.strip
+            font_paths.unshift(font_path) if File.exist?(font_path)
+          end
+        rescue StandardError
+          # 如果 fc-list 失敗，繼續使用預設路徑
+        end
+      end
     when /mswin|mingw|cygwin/i  # Windows
       font_paths = [
         'C:/Windows/Fonts/msjh.ttc',  # 微軟正黑體
