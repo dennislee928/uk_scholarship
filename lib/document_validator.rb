@@ -175,3 +175,55 @@ class DocumentValidator
   def validate_chinese_content(text)
     # 簡單檢查：確保主要內容是中文
     chinese_chars = text.scan(/[\u4e00-\u9fff]/).length
+    total_chars = text.gsub(/\s/, ).length
+    
+    return true if total_chars.zero?
+    (chinese_chars.to_f / total_chars) > 0.7
+  end
+
+  # 驗證特殊字元
+  def validate_special_characters(text)
+    # 檢查是否有不應該出現的特殊字元
+    forbidden_chars = [, □, ■]
+    forbidden_chars.none? { |char| text.include?(char) }
+  end
+
+  def guess_word_limit(filename)
+  # 根據檔名猜測字數限制
+    WORD_LIMITS.each do |pattern, limit|
+      return limit if filename.include?(pattern.gsub(.md, ))
+    end
+    nil
+  end
+
+  # 建立檢查訊息
+  def build_check_messages(checks, word_count, limit)
+    messages = []
+    
+    if limit
+      if checks[:word_count_valid]
+        messages << "字數: #{word_count}/#{limit} ✓"
+      else
+        messages << "字數: #{word_count}/#{limit} 超出 #{word_count - limit} 字 ✗"
+      end
+    else
+      messages << "字數: #{word_count}"
+    end
+
+    messages << "格式錯誤: 缺少標題" unless checks[:markdown_valid]
+    messages << "內容警告: 中文比例偏低" unless checks[:chinese_only]
+    messages << "發現不允許的特殊字元" unless checks[:no_special_chars]
+
+    messages
+  end
+
+  # 建立驗證結果
+  def build_result(file, valid, message, extra = {})
+    {
+      file: file,
+      valid: valid,
+      message: message,
+      timestamp: Time.now
+    }.merge(extra)
+  end
+end
