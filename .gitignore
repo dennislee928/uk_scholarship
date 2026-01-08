@@ -1,1 +1,48 @@
-/hint
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+
+# Bundler
+/.bundle/
+/vendor/bundle
+Gemfile.lock
+
+# RSpec
+.rspec_status
+
+# Build artifacts
+/build/*.exe
+/build/*.pkg
+/build/*.app
+*.exe
+*.pkg
+
+# Product files (可選擇保留或忽略)
+# /product/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
