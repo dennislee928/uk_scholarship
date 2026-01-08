@@ -125,3 +125,30 @@ class ContentAnalyzer
   # 分析關鍵字密度
   def analyze_keywords(content)
     text = remove_markdown(content).downcase
+    total_chars = text.gsub(/\s/, ).length
+
+    # 重要關鍵字
+    important_keywords = [軟體, 工程, 開發, 安全, 資安, 系統, 專案, 技術]
+    
+    keyword_counts = important_keywords.map do |keyword|
+      count = text.scan(keyword).length
+      density = total_chars > 0 ? (count.to_f / total_chars * 1000).round(2) : 0
+      [keyword, { count: count, density: density }]
+    end.to_h
+
+    {
+      keywords: keyword_counts,
+      top_keywords: keyword_counts.sort_by { |_k, v| -v[:count] }.first(5).to_h
+    }
+  end
+
+  # 分析結構
+  def analyze_structure(content)
+    structure_checks = {
+      has_title: content.match?(/^#\s+/),
+      has_sections: content.scan(/^##\s+/).length > 0,
+      has_lists: content.match?(/^[-*+]\s+/) || content.match?(/^\d+\.\s+/),
+      section_count: content.scan(/^##\s+/).length
+    }
+
+    score = 0
