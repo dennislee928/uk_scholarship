@@ -85,11 +85,11 @@ class PDFMerger
   def add_page_numbers(options = {})
     return unless @merged_pdf
 
-    font_size = options[:font_size] || 10
-    position = options[:position] || :bottom_center
+    _font_size = options[:font_size] || 10
+    _position = options[:position] || :bottom_center
 
-    @merged_pdf.pages.each_with_index do |page, index|
-      page_num = index + 1
+    @merged_pdf.pages.each_with_index do |_page, index|
+      _page_num = index + 1
       # 使用 CombinePDF 的方法加入頁碼
       # 注意：這需要進階的 PDF 操作，可能需要額外的 gem
       # 暫時保留此功能規劃

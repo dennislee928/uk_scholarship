@@ -106,7 +106,7 @@ class DocumentValidator
     text = content.dup
     
     # 移除標題標記
-    text.gsub!(/^#{1,6}\s+/, '')
+    text.gsub!(/^#\{1,6\}\s+/, '')
     
     # 移除粗體、斜體
     text.gsub!(/[*_]{1,2}([^*_]+)[*_]{1,2}/, '\1')
