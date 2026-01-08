@@ -114,3 +114,14 @@ class ContentAnalyzer
     score -= 10 if paragraphs.length < 3     # 段落太少
     score = [0, score].max
 
+    {
+      score: score,
+      avg_sentence_length: avg_sentence_length.round(1),
+      paragraph_count: paragraphs.length,
+      recommendation: generate_readability_recommendation(score)
+    }
+  end
+
+  # 分析關鍵字密度
+  def analyze_keywords(content)
+    text = remove_markdown(content).downcase
