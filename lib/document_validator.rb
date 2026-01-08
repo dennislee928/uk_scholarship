@@ -77,3 +77,39 @@ class DocumentValidator
 
   # 生成驗證摘要
   def summary
+    return "尚未進行驗證" if @results.empty?
+
+    total = @results.length
+    passed = @results.count { |r| r[:valid] }
+    failed = total - passed
+
+    summary_text = "驗證摘要
+"
+    summary_text += "=" * 50 + "
+"
+    summary_text += "總計: #{total} 個檔案
+"
+    summary_text += "失敗: #{failed} 個
+"
+    summary_text += "通過率: #{(passed * 100.0 / total).round(2)}%
+"
+    summary_text += "
+"
+
+    @results.each do |result|
+      status = result[:valid] ? "✓" : "✗"
+      summary_text += "#{status} #{File.basename(result[:file])}
+"
+      summary_text += "   #{result[:message]}
+" unless result[:message].empty?
+    end
+
+    summary_text
+  end
+
+  private
+
+  # 移除 Markdown 語法
+  def remove_markdown_syntax(content)
+    text = content.dup
+    
