@@ -37,3 +37,26 @@ class DocumentValidator
     # 執行各項檢查
     checks = {
       word_count_valid: validate_word_count(word_count, limit),
+      markdown_valid: validate_markdown_format(content),
+      has_title: validate_has_title(content),
+      chinese_only: validate_chinese_content(text),
+      no_special_chars: validate_special_characters(text)
+    }
+
+    all_valid = checks.values.all?
+    messages = build_check_messages(checks, word_count, limit)
+
+    build_result(
+      file_path,
+      all_valid,
+      messages.join("
+"),
+      word_count: word_count,
+      word_limit: limit,
+      checks: checks
+    )
+  end
+
+  # 批次驗證多個檔案
+  def validate_batch(file_paths)
+    @results = file_paths.map { |path| validate_file(path) }
