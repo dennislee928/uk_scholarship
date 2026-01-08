@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'fileutils'
+
 # macOS .pkg 打包腳本
 # 使用 Platypus 或 fpm
 
@@ -13,8 +15,15 @@ app_bundle = "build/#{app_name}.app"
 FileUtils.mkdir_p("#{app_bundle}/Contents/MacOS")
 FileUtils.mkdir_p("#{app_bundle}/Contents/Resources")
 
+# 檢查來源檔案是否存在
+source_file = "gui/main_window.rb"
+unless File.exist?(source_file)
+  puts "錯誤: 找不到來源檔案 #{source_file}"
+  exit 1
+end
+
 # 複製執行檔
-FileUtils.cp("gui/main_window.rb", "#{app_bundle}/Contents/MacOS/#{app_name}")
+FileUtils.cp(source_file, "#{app_bundle}/Contents/MacOS/#{app_name}")
 FileUtils.chmod(0755, "#{app_bundle}/Contents/MacOS/#{app_name}")
 
 # 建立 Info.plist
