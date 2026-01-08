@@ -79,14 +79,62 @@ jobs:
                     --template=default
 
             - name: Commit and push PDF files
+              env:
+                  GITHUB_REF: ${{ github.ref }}
+                  GITHUB_REF_NAME: ${{ github.ref_name }}
+                  GITHUB_HEAD_REF: ${{ github.head_ref }}
               run: |
+                  mkdir -p .cursor
+                  LOG_FILE=".cursor/debug.log"
+
+                  # #region agent log
+                  echo "{\"id\":\"log_$(date +%s)_A\",\"timestamp\":$(date +%s)000,\"location\":\"convert-to-pdf.yml:83\",\"message\":\"Git state before config\",\"data\":{\"ref\":\"$GITHUB_REF\",\"ref_name\":\"$GITHUB_REF_NAME\",\"head_ref\":\"$GITHUB_HEAD_REF\",\"current_branch\":\"$(git branch --show-current 2>/dev/null || echo 'detached')\",\"head_state\":\"$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'detached')\"},\"sessionId\":\"debug-session\",\"runId\":\"run1\",\"hypothesisId\":\"A\"}" | tee -a "$LOG_FILE"
+                  # #endregion
+
                   git config --local user.email "action@github.com"
                   git config --local user.name "GitHub Action"
 
+                  # #region agent log
+                  echo "{\"id\":\"log_$(date +%s)_B\",\"timestamp\":$(date +%s)000,\"location\":\"convert-to-pdf.yml:90\",\"message\":\"Git state after config, before checkout\",\"data\":{\"current_branch\":\"$(git branch --show-current 2>/dev/null || echo 'detached')\",\"head_state\":\"$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'detached')\",\"is_detached\":\"$(git rev-parse --abbrev-ref HEAD 2>/dev/null | grep -q '^HEAD$' && echo 'true' || echo 'false')\"},\"sessionId\":\"debug-session\",\"runId\":\"run1\",\"hypothesisId\":\"A,C\"}" | tee -a "$LOG_FILE"
+                  # #endregion
+
+                  # Checkout to main branch before committing
+                  git checkout main || git checkout -b main origin/main
+
+                  # #region agent log
+                  echo "{\"id\":\"log_$(date +%s)_C\",\"timestamp\":$(date +%s)000,\"location\":\"convert-to-pdf.yml:95\",\"message\":\"Git state after checkout main\",\"data\":{\"current_branch\":\"$(git branch --show-current 2>/dev/null || echo 'detached')\",\"head_state\":\"$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo 'detached')\",\"remote_tracking\":\"$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo 'none')\"},\"sessionId\":\"debug-session\",\"runId\":\"run1\",\"hypothesisId\":\"C\"}" | tee -a "$LOG_FILE"
+                  # #endregion
+
                   if [ -n "$(git status --porcelain product/)" ]; then
+                    # #region agent log
+                    echo "{\"id\":\"log_$(date +%s)_D\",\"timestamp\":$(date +%s)000,\"location\":\"convert-to-pdf.yml:100\",\"message\":\"Changes detected, before add\",\"data\":{\"changes\":\"$(git status --porcelain product/ | head -5)\"},\"sessionId\":\"debug-session\",\"runId\":\"run1\",\"hypothesisId\":\"A\"}" | tee -a "$LOG_FILE"
+                    # #endregion
+                    
                     git add product/
-                    git commit -m "chore: Generate PDF files from Markdown on tag ${{ github.ref_name }}"
-                    git push
+                    git commit -m "chore: Generate PDF files from Markdown on tag $GITHUB_REF_NAME"
+                    
+                    # #region agent log
+                    echo "{\"id\":\"log_$(date +%s)_E\",\"timestamp\":$(date +%s)000,\"location\":\"convert-to-pdf.yml:106\",\"message\":\"After commit, before push\",\"data\":{\"current_branch\":\"$(git branch --show-current 2>/dev/null || echo 'detached')\",\"commit_sha\":\"$(git rev-parse HEAD)\",\"ahead_count\":\"$(git rev-list --count HEAD ^origin/main 2>/dev/null || echo 'unknown')\"},\"sessionId\":\"debug-session\",\"runId\":\"run1\",\"hypothesisId\":\"B\"}" | tee -a "$LOG_FILE"
+                    # #endregion
+                    
+                    git push origin main
+                    PUSH_EXIT_CODE=$?
+                    
+                    # #region agent log
+                    echo "{\"id\":\"log_$(date +%s)_F\",\"timestamp\":$(date +%s)000,\"location\":\"convert-to-pdf.yml:111\",\"message\":\"After push attempt\",\"data\":{\"push_exit_code\":\"$PUSH_EXIT_CODE\",\"current_branch\":\"$(git branch --show-current 2>/dev/null || echo 'detached')\"},\"sessionId\":\"debug-session\",\"runId\":\"run1\",\"hypothesisId\":\"B\"}" | tee -a "$LOG_FILE"
+                    # #endregion
+                    
+                    if [ $PUSH_EXIT_CODE -ne 0 ]; then
+                      exit $PUSH_EXIT_CODE
+                    fi
                   else
                     echo "No changes to commit"
                   fi
+
+            - name: Upload debug logs
+              if: always()
+              uses: actions/upload-artifact@v4
+              with:
+                  name: debug-logs
+                  path: .cursor/debug.log
+                  if-no-files-found: ignore
