@@ -71,3 +71,39 @@ class ContentAnalyzer
     summary_text += "=" * 50 + "
 
 "
+
+    @analysis_results.each do |file, analysis|
+      summary_text += "
+檔案: #{File.basename(file)}
+"
+      summary_text += "-" * 40 + "
+"
+      summary_text += "可讀性評分: #{analysis[:readability][:score]}/100
+"
+      summary_text += "結構完整性: #{analysis[:structure][:score]}/100
+"
+      summary_text += "SDGs 對齊: #{analysis[:sdgs_alignment][:matched_sdgs].join(, )}
+"
+      summary_text += "常見錯誤: #{analysis[:common_errors][:count]} 個
+"
+      summary_text += "
+"
+    end
+
+    summary_text
+  end
+
+  private
+
+  # 分析可讀性
+  def analyze_readability(content)
+    text = remove_markdown(content)
+    
+    # 計算平均句長
+    sentences = text.split(/[。！？]/)
+    avg_sentence_length = sentences.map(&:length).sum.to_f / sentences.length rescue 0
+    
+    # 計算段落數量
+    paragraphs = content.split(/
+
++/)
